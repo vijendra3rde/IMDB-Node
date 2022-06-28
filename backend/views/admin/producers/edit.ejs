@@ -1,0 +1,95 @@
+<!--
+including header content which is common for all pages
+--> 
+<%- include ('../include/header.ejs') %>	
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Producers</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Producers</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section> 
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+
+            	<div class="card-header">
+	              <h3 class="card-title">Edit Producers</h3>
+	               <br> 
+					<% if (messages.error) { %>
+						<p style="color:red"><%- messages.error %></p>
+					<% } %>
+
+					<% if (messages.success) { %>
+						<p style="color:green"><%- messages.success %></p>
+					<% } %>
+
+ 
+ 	            </div>
+	            <!-- /.card-header -->
+	            <div class="card-body">
+
+					<form action="/admin/producers/edit/<%= id %>" method="post" name="form1">
+						<table  border="0">
+							<tbody id="last_option">
+
+                                <tr> 
+                                    <td>Name</td>
+                                    <td><input type="text" name="name" id="name" value="<%= name %>" /></td>
+                                </tr> 
+                                <tr> 
+                                    <td>Gender</td>
+                                    <td>
+                                      <select name="gender">
+                                        <% if (gender == 'Male') { %>
+                                          <option selected value="Male">Male</option>
+                                          <% }else{ %>
+                                            <option  value="Male">Male</option>
+                                          <% } %>
+
+                                          <% if (gender == 'Female') { %>
+                                            <option selected value="Female">Female</option>
+                                            <% }else{ %>
+                                              <option  value="Female">Female</option>
+                                            <% } %>                
+                                          </select>
+                                     </td>
+                                  </tr>
+                                <tr> 
+                                    <td>Date of Birth</td>
+                                    <td><input type="date" name="dob" value="<%= dob %>" /></td>
+                                </tr>
+                                <tr> 
+                                    <td>Bio</td>
+                                    <td><input type="text" name="bio" value="<%= bio %>" /></td>
+                                </tr>
+							  
+						    </tbody>
+						
+						</table>
+							<input type="hidden" name="_method" value="PUT" />
+						<input type="submit" name="Submit" value="Update" />
+ 					</form>
+
+				</div>
+			</div>
+		</div>
+	</section>
+</div> 
+<!--
+including footer content which is common for all pages
+-->
+<%- include ('../include/footer.ejs') %>

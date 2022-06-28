@@ -1,0 +1,99 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include('../include/header.ejs') %>	 
+
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Producers</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Producers</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section> 
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+
+            	<div class="card-header">
+	              <!-- <h3 class="card-title">Questions</h3> -->
+	              <br>
+	             <a class="btn btn-block btn-primary btn-primary" style="width: 20%" href='/admin/producers/add/'>Add New </a>
+
+ 	            </div>
+	            <!-- /.card-header -->
+	            <div class="card-body">
+
+					<table id="example1" class="table table-bordered table-striped" >
+						<thead>
+							<tr >
+								<th>Name</th>
+								<th>Gender</th>
+								<th>Date of Birth</th> 
+								<th>Action</th>
+							</tr>
+						</thead>
+             			<tbody>
+						 
+							<% if (data) { %>
+                            <% data.forEach(function(producer){ %>
+								<tr>
+									<td><%= producer.name %></td>
+									 
+ 									<td><%= producer.gender %></td>
+									<td><%= producer.dob %></td> 
+									<td>
+										<div >
+											<a style="float:left" class="btn btn-info btn-sm" href='/admin/producers/edit/<%= producer._id %>' class="btn btn-app"> <i class="fas fa-edit"></i>
+											 </a> &nbsp;							
+											<form method="post" action="/admin/producers/delete/<%= producer._id %>" style="float:right">
+												<input type="submit" class="btn btn-danger btn-sm" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+												<input type="hidden" name="_method" value="DELETE" />
+											</form> 
+										</div>
+									</td>
+								</tr>
+							<% }) %>
+							<% } %>
+						</tbody>
+		                <tfoot>
+		                <tr>
+		                    <th>Name</th>
+								<th>Gender</th>
+								<th>Date of Birth</th> 
+								<th>Action</th>
+		                </tr>
+		                </tfoot>
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+</div> 
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include('../include/footer.ejs') %>
+
