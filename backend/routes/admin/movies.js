@@ -104,6 +104,50 @@ router.post('/create', imageUpload.single('poster'), function(req, res) {
     }
  })
 
+ // update movies POST API
+router.put('/update/(:id)', imageUpload.single('poster'), function(req, res, next) {
+    console.log(req.body)
+    req.assert('name', 'Name is required').notEmpty()           //Validate name
+	req.assert('year_of_release', 'Year of release is required').notEmpty()             //Validate age
+	req.assert('plot', 'plot is required').notEmpty()
+    req.assert('producer_id', 'Producer id is required').notEmpty()
+    req.assert('actor_id', 'Actor id is required').notEmpty()
+
+    var errors = req.validationErrors()
+    if( !errors ) 
+    {     
+		var moviesObj = {
+			name: req.sanitize('name').escape().trim(),
+			year_of_release: req.sanitize('year_of_release').escape().trim(),
+            plot: req.sanitize('plot').escape().trim(), 
+            actor_id: req.body.actor_id,
+            producer_id: req.body.producer_id,
+            poster: req.file.filename
+        }
+		
+        try{
+            Movies.update({_id: req.params.id}, moviesObj,
+                function(err, movies){ 
+                    if(err)  res.json(404, {'error':err})
+                    else    res.json(200,{'movies': moviesObj, 'file': req.file})
+                }
+            ); 
+        } catch (error) {
+            //console.log(error)
+            res.json(404, {'error':error})
+        } 
+		
+		 
+	}
+	else {   //Display errors to user
+		var error_msg = ''
+		errors.forEach(function(error) {
+			error_msg += error.msg + '<br>'
+		})
+        res.json(404, {'error':error_msg})			 
+    }
+})
+
  router.get('/', function(req, res) {
     sess = req.session;
     var userMap = {};
