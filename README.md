@@ -9,7 +9,7 @@ IMDB Node js Project
 
 - should be globally accessible from command line
 
-## Frentend React js
+## Frontend React js
 
 ## Install dependencies from NPM 
 
@@ -31,6 +31,10 @@ If all the above message are shown in logs then you are successfully connected t
 The website can be accessed from the following URL:
 
 > http://localhost:3000
+
+
+
+
 
 ## Backend Node js
 
