@@ -16,7 +16,7 @@ app.get('/all', function(req, res) {
     }) 
  })
 
- //create actors API
+//create actors API
 app.post('/create', function(req, res) {
 
     req.assert('name', 'Name is required').notEmpty()           //Validate name
@@ -54,6 +54,7 @@ app.post('/create', function(req, res) {
     }
  })
 
+ //view all actors
 app.get('/', function(req, res) {
     sess = req.session; 
     Actors.find({}, function(err, actors) { 
@@ -61,7 +62,7 @@ app.get('/', function(req, res) {
     }); 
  })
 
-// SHOW ADD actors FORM
+// show form add actors 
 app.get('/add', function(req, res, next){	
 	 
  	res.render('admin/actors/add', {
@@ -94,7 +95,7 @@ app.post('/add', function(req, res, next){
 		
         try{
             const actors = new Actors(actorsObj)
-             actors.save() 
+            actors.save() 
             req.flash('success', 'Data added Successfully!')
  			res.redirect('/admin/actors/');
         } catch (error) {

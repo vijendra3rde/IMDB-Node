@@ -40,7 +40,7 @@ const imageUpload = multer({
   }
 }) 
 
-
+//upload single image
 router.post('/upload', imageUpload.single('image'), (req, res) => {
     res.send(req.file)
 }, (error, req, res, next) => {
@@ -226,13 +226,12 @@ router.get('/edit/(:id)', function(req, res, next){
 
 // EDIT movies POST ACTION
 router.put('/edit/(:id)', function(req, res, next) {
-
-    req.assert('name', 'Name is required').notEmpty()           //Validate name
-	req.assert('year_of_release', 'Year of release is required').notEmpty()             //Validate age
-	req.assert('plot', 'plot is required').notEmpty()             //Validate age
+    console.log(req.body)
+    req.assert('name', 'Name is required').notEmpty()          
+	req.assert('year_of_release', 'Year of release is required').notEmpty()   
+	req.assert('plot', 'plot is required').notEmpty()      
   
     var errors = req.validationErrors()
-    
     if( !errors ) 
     {     
 		var moviesObj = {
@@ -240,8 +239,7 @@ router.put('/edit/(:id)', function(req, res, next) {
 			year_of_release: req.sanitize('year_of_release').escape().trim(),
             plot: req.sanitize('plot').escape().trim(), 
             actor_id: req.body.actor_id,
-            producer_id: req.body.producer_id,
-            poster: req.sanitize('poster').escape().trim()
+            producer_id: req.body.producer_id, 
         }
 		
         try{

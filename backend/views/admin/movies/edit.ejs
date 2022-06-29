@@ -42,7 +42,7 @@ including header content which is common for all pages
 	            <!-- /.card-header -->
 	            <div class="card-body">
 
-					<form action="/admin/movies/edit/<%= id %>" method="post" name="form1">
+					<form action="/admin/movies/edit/<%= id %>" method="post" name="form1" >
 						<table  border="0">
 							<tbody id="last_option">
 
@@ -51,40 +51,29 @@ including header content which is common for all pages
                   <td><input type="text" name="name" id="name" value="<%= name %>" /></td>
                 </tr> 
                 <tr> 
-                  <td>Year of Release</td>
-                  <td><input type="text" name="year_of_release" value="<%= year_of_release %>" /></td>
-                </tr>
-                <tr> 
-                  <td>Plot</td>
-                  <td><input type="text" name="plot" value="<%= plot %>" /></td>
-                </tr>
-                <tr> 
-                  <td>Poster</td>
-                  <td><input type="text" name="poster" value="<%= poster %>" /></td>
-                </tr>
-                 
-                <tr> 
                   <td>Select Actors</td>
                   <td>
-                    <select name="actor_id">
-                      <option value="">Select a actors</option>
-                      <% if (actors) { %>
-                        <% actors.forEach(function(actor){ %> 
-                          <option value="<%= actor._id %>"><%= actor.name %></option>
-                        <% }) %>
-                        <% } %>
-          
+                    <select name="actor_id" id="actor_id">
+                      <option value="">Select a actors</option>  
                     </select>
                    </td>
                 </tr> 
                 <tr> 
                   <td>Select Producer</td>
                   <td>
-                    <select name="producers_id">
+                    <select name="producers_id" id="producers_id">
                       <option value="">Select a Producer</option>
                     </select>
                    </td>
                 </tr> 
+                <tr> 
+                  <td>Year of Release</td>
+                  <td><input type="text" name="year_of_release" value="<%= year_of_release %>" /></td>
+                </tr>
+                <tr> 
+                  <td>Plot</td>
+                  <td><input type="text" name="plot" value="<%= plot %>" /></td>
+                </tr>  
 							  
 						    </tbody>
 						
@@ -102,3 +91,52 @@ including header content which is common for all pages
 including footer content which is common for all pages
 -->
 <%- include ('../include/footer.ejs') %>
+<script>
+	jQuery(document).ready(function(){
+		getAllActors();
+		getAllproducers();
+		function getAllActors(){ 
+  	        var ajaxurl = '/admin/actors/all';
+	        var form_data = { 
+	        				}
+	        jQuery.ajax({
+	            url:ajaxurl,
+	            type:'GET',  
+	            dataType: 'json',
+	            data: form_data,
+	            success:function(res){
+	                console.log(res);
+					for (i = 0; i < res.length; i++) {
+						console.log(res[i]);
+						jQuery('#actor_id').append(`<option value="${res[i]._id}">
+                                       ${res[i].name}
+                                  </option>`);
+
+					}
+	            } 
+	        });
+	 	}
+
+		function getAllproducers(){ 
+  	        var ajaxurl = '/admin/producers/all';
+	        var form_data = { 
+	        				}
+	        jQuery.ajax({
+	            url:ajaxurl,
+	            type:'GET',  
+	            dataType: 'json',
+	            data: form_data,
+	            success:function(res){
+	                console.log(res);
+					for (i = 0; i < res.length; i++) {
+						console.log(res[i]);
+						jQuery('#producers_id').append(`<option value="${res[i]._id}">
+                                       ${res[i].name}
+                                  </option>`);
+
+					}
+	            } 
+	        });
+	 	}
+	})
+</script>

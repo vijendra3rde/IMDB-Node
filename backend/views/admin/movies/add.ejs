@@ -58,13 +58,8 @@ including header content which is common for all pages
 							<tr> 
 								<td>Select Actors</td>
 								<td>
-									<select name="actor_id">
-										<option value="">Select a actors</option>
-										<% if (actors) { %>
-											<% actors.forEach(function(actor){ %> 
-												<option value="<%= actor._id %>"><%= actor.name %></option>
-											<% }) %>
-											<% } %>
+									<select name="actor_id" id="actor_id">
+										<option value="">Select a actors</option> 
 				
 									</select>
  								</td>
@@ -72,7 +67,7 @@ including header content which is common for all pages
 							<tr> 
 								<td>Select Producer</td>
 								<td>
-									<select name="producers_id">
+									<select name="producers_id" id="producers_id">
 										<option value="">Select a Producer</option>
 									</select>
  								</td>
@@ -107,3 +102,52 @@ including header content which is common for all pages
 including footer content which is common for all pages
 -->
 <%- include('../include/footer.ejs') %>
+<script>
+	jQuery(document).ready(function(){
+		getAllActors();
+		getAllproducers();
+		function getAllActors(){ 
+  	        var ajaxurl = '/admin/actors/all';
+	        var form_data = { 
+	        				}
+	        jQuery.ajax({
+	            url:ajaxurl,
+	            type:'GET',  
+	            dataType: 'json',
+	            data: form_data,
+	            success:function(res){
+	                console.log(res);
+					for (i = 0; i < res.length; i++) {
+						console.log(res[i]);
+						jQuery('#actor_id').append(`<option value="${res[i]._id}">
+                                       ${res[i].name}
+                                  </option>`);
+
+					}
+	            } 
+	        });
+	 	}
+
+		function getAllproducers(){ 
+  	        var ajaxurl = '/admin/producers/all';
+	        var form_data = { 
+	        				}
+	        jQuery.ajax({
+	            url:ajaxurl,
+	            type:'GET',  
+	            dataType: 'json',
+	            data: form_data,
+	            success:function(res){
+	                console.log(res);
+					for (i = 0; i < res.length; i++) {
+						console.log(res[i]);
+						jQuery('#producers_id').append(`<option value="${res[i]._id}">
+                                       ${res[i].name}
+                                  </option>`);
+
+					}
+	            } 
+	        });
+	 	}
+	})
+</script>
