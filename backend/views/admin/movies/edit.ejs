@@ -61,7 +61,7 @@ including header content which is common for all pages
                 <tr> 
                   <td>Select Producer</td>
                   <td>
-                    <select name="producers_id" id="producers_id">
+                    <select name="producer_id" id="producer_id">
                       <option value="">Select a Producer</option>
                     </select>
                    </td>
@@ -93,6 +93,9 @@ including footer content which is common for all pages
 <%- include ('../include/footer.ejs') %>
 <script>
 	jQuery(document).ready(function(){
+    var producer_id = '<%= producer_id %>';
+    var actor_id = '<%= actor_id %>';
+
 		getAllActors();
 		getAllproducers();
 		function getAllActors(){ 
@@ -108,10 +111,16 @@ including footer content which is common for all pages
 	                console.log(res);
 					for (i = 0; i < res.length; i++) {
 						console.log(res[i]);
-						jQuery('#actor_id').append(`<option value="${res[i]._id}">
+            if(actor_id == res[i]._id)
+            {
+              jQuery('#actor_id').append(`<option selected value="${res[i]._id}">
                                        ${res[i].name}
                                   </option>`);
-
+            }else{
+              jQuery('#actor_id').append(`<option value="${res[i]._id}">
+                                       ${res[i].name}
+                                  </option>`);
+            } 
 					}
 	            } 
 	        });
@@ -130,9 +139,16 @@ including footer content which is common for all pages
 	                console.log(res);
 					for (i = 0; i < res.length; i++) {
 						console.log(res[i]);
-						jQuery('#producers_id').append(`<option value="${res[i]._id}">
+            if(producer_id == res[i]._id)
+            {
+              jQuery('#producer_id').append(`<option selected value="${res[i]._id}">
                                        ${res[i].name}
                                   </option>`);
+            }else{
+              jQuery('#producer_id').append(`<option value="${res[i]._id}">
+                                       ${res[i].name}
+                                  </option>`);
+            }  
 
 					}
 	            } 

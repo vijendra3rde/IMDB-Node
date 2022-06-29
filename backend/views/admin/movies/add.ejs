@@ -67,7 +67,7 @@ including header content which is common for all pages
 							<tr> 
 								<td>Select Producer</td>
 								<td>
-									<select name="producers_id" id="producers_id">
+									<select name="producer_id" id="producer_id">
 										<option value="">Select a Producer</option>
 									</select>
  								</td>
@@ -141,7 +141,7 @@ including footer content which is common for all pages
 	                console.log(res);
 					for (i = 0; i < res.length; i++) {
 						console.log(res[i]);
-						jQuery('#producers_id').append(`<option value="${res[i]._id}">
+						jQuery('#producer_id').append(`<option value="${res[i]._id}">
                                        ${res[i].name}
                                   </option>`);
 

@@ -210,8 +210,8 @@ router.get('/edit/(:id)', function(req, res, next){
             title: 'edit movies',
             year_of_release: movie.year_of_release,
             plot: movie.plot,
-            producer_id:'',
-            actor_id:'',
+            producer_id: movie.producer_id,
+            actor_id: movie.actor_id,
             actors:'',
             producers:'',
             poster: movie.poster		
