@@ -23,10 +23,9 @@ The following command will get the running server:
 
 You should see the following messages in your terminal;
 
-- React is running on port 3000
-- Connected to MongoDB
+- React is running on port 3000 
 
-If all the above message are shown in logs then you are successfully connected to Nodejs, Express and MongoDB respectively
+If all the above message are shown in logs then you are successfully connected to React  respectively
 
 The website can be accessed from the following URL:
 
